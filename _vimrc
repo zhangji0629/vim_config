@@ -22,14 +22,37 @@ Plug 'majutsushi/tagbar'
 Plug 'Raimondi/delimitMate'
 " 颜色主题
 Plug 'morhetz/gruvbox'
+"快速注释
+Plug 'scrooloose/nerdcommenter'
 " 优化搜索，移动清除搜索高亮
 Plug 'junegunn/vim-slash'        
+"括号,引号自动匹配
+Plug 'jiangmiao/auto-pairs'
+"protodef支持
+Plug 'derekwyatt/vim-protodef'
+
+Plug 'Lokaltog/vim-powerline'
+Plug 'Yggdroot/indentLine'
+Plug 'tell-k/vim-autopep8'
+
+"vim-python相关
+Plug 'scrooloose/syntastic'
+Plug 'davidhalter/jedi-vim'
+
+"代码折叠插件
+Plug 'tmhedberg/SimpylFold'
+
+"cpp补全
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cpp'] }
+
 " 初始化
 call plug#end()
 
 set backspace=indent,eol,start  " 智能回删
 set whichwrap+=h,l,<,>,[,]      " 光标循环
 set virtualedit=block,onemore   " 允许光标出现在最后一个字符的后面
+set cindent     "（cindent是特别针对 C语言语法自动缩进）
+set encoding=utf-8  "设置utf-8编码
 
 set tabstop=4 "控制插入 Tab 時所需要的空白鍵(Tab)字元數
 set shiftwidth=4 "控制程式縮排所需要的 Space 個數
@@ -182,3 +205,73 @@ nnoremap <Leader>fc :Colors<CR>
 nnoremap <Leader>fh :History<CR>
 nnoremap <Leader>fl :Lines<CR>
 nnoremap <Leader>fm :Commands<CR>
+
+" \rr        一键保存、编译、运行
+imap <leader>rr <esc>:call Compile_Run_Code()<cr>
+nmap <leader>rr :call Compile_Run_Code()<cr>
+vmap <leader>rr <esc>:call Compile_Run_Code()<cr>
+
+function! Compile_Run_Code()
+    exec "w"
+    if &filetype is 'java'
+        exec "!javac\ -d\ .\ %"
+        exec "!java\ %<"
+    elseif &filetype is 'cpp'|| &filetype == 'c'
+        exec "!g++ -std=c++1y % -o %<"
+        exec "!./%<"
+    elseif &filetype is "python"
+        exec "!python3.5 %"
+    elseif &filetype is "go"
+        exec "!go run %"
+    endif
+endfunction
+
+
+"YouCompleteMe
+"默认配置文件路径"
+let g:ycm_global_ycm_extra_conf='~/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+"youcompleteme  默认tab  s-tab 和自动补全冲突
+""let g:ycm_key_list_select_completion=['<c-n>']
+let g:ycm_key_list_select_completion = ['<Down>']
+"let g:ycm_key_list_previous_completion=['<c-p>']
+let g:ycm_key_list_previous_completion = ['<Up>']
+"关闭加载.ycm_extra_conf.py提示
+let g:ycm_confirm_extra_conf=0 
+" 开启 YCM 基于标签引擎
+let g:ycm_collect_identifiers_from_tags_files=1 
+" 从第2个键入字符就开始罗列匹配项
+let g:ycm_min_num_of_chars_for_completion=2 
+" 禁止缓存匹配项,每次都重新生成匹配项
+let g:ycm_cache_omnifunc=0  
+" 语法关键字补全
+let g:ycm_seed_identifiers_with_syntax=1
+"force recomile with syntastic
+nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>    
+"nnoremap <leader>lo :lopen<CR> "open locationlist
+"nnoremap <leader>lc :lclose<CR>    "close locationlist
+inoremap <leader><leader> <C-x><C-o>
+"在注释输入中也能补全
+let g:ycm_complete_in_comments = 1
+"在字符串输入中也能补全
+let g:ycm_complete_in_strings = 1
+"注释和字符串中的文字也会被收入补全
+let g:ycm_collect_identifiers_from_comments_and_strings = 0
+
+
+
+"开启代码折叠
+set foldmethod=indent
+set foldlevel=99
+"设置快捷键为空格
+noremap <space> za
+"显示折叠代码的文档字符串
+let g:SimpylFold_docstring_preview=1
+
+"python代码缩进PEP8风格
+au BufNewFile,BufRead *.py,*.pyw set tabstop=4 
+au BufNewFile,BufRead *.py,*.pyw set softtabstop=4 
+au BufNewFile,BufRead *.py,*.pyw set shiftwidth=4 
+au BufNewFile,BufRead *.py,*.pyw set textwidth=79 
+au BufNewFile,BufRead *.py,*.pyw set expandtab 
+au BufNewFile,BufRead *.py,*.pyw set autoindent 
+au BufNewFile,BufRead *.py,*.pyw set fileformat=unix

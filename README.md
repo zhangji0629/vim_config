@@ -28,3 +28,5 @@ export PATH="$GOBIN:$GOROOT/bin:$PATH"
 
 至此，环境配置完成
 
+
+vim 安装YouCompleteMe相关教程:https://hk.saowen.com/a/e2403b525526e09cd6d608794ca0470d6d90b2d5fe37e444d4a924f79c081846
