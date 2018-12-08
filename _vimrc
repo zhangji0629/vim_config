@@ -257,14 +257,7 @@ let g:ycm_complete_in_strings = 1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
-
-
-"开启代码折叠
-set foldmethod=indent
-set foldlevel=99
-"设置快捷键为空格
-noremap <space> za
-"显示折叠代码的文档字符串
+"代码折叠
 let g:SimpylFold_docstring_preview=1
 
 "python代码缩进PEP8风格
