@@ -35,6 +35,8 @@ Plug 'Lokaltog/vim-powerline'
 Plug 'Yggdroot/indentLine'
 Plug 'tell-k/vim-autopep8'
 
+Plug 'shougo/neocomplete.vim'
+
 "vim-python相关
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
@@ -191,6 +193,7 @@ let g:go_highlight_functions              = 1  " 开启 Go 语言函数名高亮
 let g:go_highlight_methods                = 1  " 开启 Go 语言方法名高亮
 let g:go_highlight_structs                = 1  " 开启 Go 语言结构体名高亮
 let g:go_highlight_build_constraints = 1
+let g:go_fmt_command = "goimports"
 
 " 设置主题
 set background=dark
@@ -259,6 +262,9 @@ let g:ycm_collect_identifiers_from_comments_and_strings = 0
 
 "代码折叠
 let g:SimpylFold_docstring_preview=1
+
+"实时代码补全
+let g:neocomplete#enable_at_startup = 1
 
 "python代码缩进PEP8风格
 au BufNewFile,BufRead *.py,*.pyw set tabstop=4 
