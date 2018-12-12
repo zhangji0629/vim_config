@@ -47,6 +47,8 @@ Plug 'tmhedberg/SimpylFold'
 "cpp补全
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cpp'] }
 
+Plug 'tpope/vim-fugitive'
+
 " 初始化
 call plug#end()
 
