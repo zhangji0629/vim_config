@@ -141,9 +141,9 @@ map <leader>t :NERDTreeToggle<CR>
 autocmd vimenter * NERDTree
 " vim 是一个文件夹的时候,打开nerdtree
 autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree |endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" 打开文件不打开nerdtree
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeClose |endif
+autocmd VimEnter * if argc() == 1 && !isdirectory(argv()[0]) && !exists("s:std_in") | NERDTreeClose | endif
 " 显示行号
 let NERDTreeShowLineNumbers=1
 ""当NERDTree为剩下的唯一窗口时自动关闭
