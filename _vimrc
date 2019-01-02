@@ -22,6 +22,7 @@ Plug 'majutsushi/tagbar'
 Plug 'Raimondi/delimitMate'
 " 颜色主题
 Plug 'morhetz/gruvbox'
+
 "快速注释
 Plug 'scrooloose/nerdcommenter'
 " 优化搜索，移动清除搜索高亮
@@ -40,9 +41,6 @@ Plug 'shougo/neocomplete.vim'
 "vim-python相关
 Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim'
-
-"代码折叠插件
-Plug 'tmhedberg/SimpylFold'
 
 "cpp补全
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --clang-completer',  'for': ['c', 'cpp'] }
@@ -140,12 +138,11 @@ vmap <leader>v "+p
 " NERDTree 配置
 " 关闭NERDTree快捷键 \t打开
 map <leader>t :NERDTreeToggle<CR>
-au VimEnter * NERDTree
-"" vim 是一个文件夹的时候,打开nerdtree
+autocmd vimenter * NERDTree
+" vim 是一个文件夹的时候,打开nerdtree
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 " 打开文件不打开nerdtree
-autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTreeClose |endif
 " 显示行号
 let NERDTreeShowLineNumbers=1
@@ -276,3 +273,7 @@ au BufNewFile,BufRead *.py,*.pyw set textwidth=79
 au BufNewFile,BufRead *.py,*.pyw set expandtab 
 au BufNewFile,BufRead *.py,*.pyw set autoindent 
 au BufNewFile,BufRead *.py,*.pyw set fileformat=unix
+
+"vim buffers
+nmap <C-b>n  :bnext<CR>;
+nmap <C-b>p  :bprev<CR>;
